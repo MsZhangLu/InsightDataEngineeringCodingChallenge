@@ -30,34 +30,35 @@ with open(sys.argv[1]) as file:
 	# for record in itcont_lines:
 	# for record in [itcont_lines[1]]:
 
-		CMTE_ID, NAME, ZIP_CODE = record[0], record[7], record[10][0:5]
+		CMTE_ID, NAME, ZIP_CODE = record[0], record[7], record[10]
 		TRANSACTION_DT, TRANSACTION_AMT, OTHER_ID = record[13], record[14], record[15]
 
-		donation = Donation(CMTE_ID, NAME, ZIP_CODE, TRANSACTION_DT, TRANSACTION_AMT, OTHER_ID)
+		if ZIP_CODE is None:
+			continue
+		else:
+			donation = Donation(CMTE_ID, NAME, ZIP_CODE[0:5], TRANSACTION_DT, TRANSACTION_AMT, OTHER_ID)
 
-		if donation.isValid():
-			don_id = donation.getID()
+			if donation.isValid():
+				don_id = donation.getID()
+				
+				if viewed.check(don_id):
+					# viewed.drop(don_id)
+					repeated.add_long(donation.getRecipient(), donation.getZip(), donation.getYear(), donation.getAmt())
+
+					key = donation.getRecipient(), donation.getZip(), donation.getYear()
+					total_donations = repeated.get(key)
+
+					# calculate percentile of contributions			
+					dollar_donations = total_donations[0]
+					dollar_donations.sort()
+					rank = len(dollar_donations)
+					percentile_index = math.ceil(PERCENTILE * rank / 100) - 1
+					percentile_amt = dollar_donations[percentile_index]
+
+					OUTPUT_FILE.write(key[0] + '|' + key[1] + '|' + key[2] + '|' + str(int(round(percentile_amt))) + '|' + str(int(round(sum(total_donations[0])))) + '|' + str(total_donations[1]) + '\n')
 			
-			if viewed.check(don_id):
-				# viewed.drop(don_id)
-				repeated.add_long(donation.getRecipient(), donation.getZip(), donation.getYear(), donation.getAmt())
-
-				key = donation.getRecipient(), donation.getZip(), donation.getYear()
-				total_donations = repeated.get(key)
-
-				# calculate percentile of contributions			
-				dollar_donations = total_donations[0]
-				dollar_donations.sort()
-				rank = len(dollar_donations)
-				percentile_index = math.ceil(PERCENTILE * rank / 100) - 1
-				print(percentile_index)
-				percentile_amt = dollar_donations[percentile_index]
-				print(percentile_amt)
-				print(dollar_donations)
-				OUTPUT_FILE.write(key[0] + '|' + key[1] + '|' + key[2] + '|' + str(int(round(percentile_amt))) + '|' + str(int(round(sum(total_donations[0])))) + '|' + str(total_donations[1]) + '\n')
-		
-			else:
-				viewed.add(don_id, donation.getYear())
+				else:
+					viewed.add(don_id, donation.getYear())
 
 
 

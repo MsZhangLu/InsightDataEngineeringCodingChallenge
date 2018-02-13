@@ -11,12 +11,12 @@ class Donation:
 
 	def isValid(self):
 		if (
-			self.CMTE_ID is None or re.match('^[a-zA-Z0-9\s]*$', self.CMTE_ID) is None or
-			self.NAME is None or re.match('^[a-zA-Z0-9\s.,]*$', self.NAME) is None or
-			self.ZIP_CODE is None or len(self.ZIP_CODE) < 5 or re.match('^[0-9]*$', self.ZIP_CODE) is None or
-			self.TRANSACTION_DT is None or 
+			self.CMTE_ID is None or len(self.CMTE_ID) == 0 or re.match('^[a-zA-Z0-9\s]*$', self.CMTE_ID) is None or
+			self.NAME is None or len(self.NAME) == 0 or re.match('^[a-zA-Z0-9\s.,]*$', self.NAME) is None or
+			len(self.ZIP_CODE) < 5 or re.match('^[0-9]*$', self.ZIP_CODE) is None or
+			self.TRANSACTION_DT is None or len(self.TRANSACTION_DT) == 0 or 
 			re.match('^((0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])[12]\d{3})$', self.TRANSACTION_DT) is None or
-			self.TRANSACTION_AMT is None or 
+			self.TRANSACTION_AMT is None or len(self.TRANSACTION_AMT) == 0 or 
 			len(self.OTHER_ID) > 0
 			):
 			return False
