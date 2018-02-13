@@ -42,6 +42,7 @@ itcont.txt 以|分割字段，提取
 	计算出的值用 | 分割，打印在输出文件上，顺序与输入文件上的捐赠顺序一致。
 3. 输入文件 https://classic.fec.gov/finance/disclosure/ftpdet.shtml
 	只对individual donation感兴趣
+	
 	CMTE_ID: identifies the flier, which for our purposes is the recipient of this contribution
 	NAME: name of the donor
 	ZIP_CODE: zip code of the contributor (we only want the first five digits/characters)
