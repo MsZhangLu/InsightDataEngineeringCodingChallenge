@@ -24,8 +24,6 @@ class Donation:
 			return True
 
 	def getID(self):
-		print(self.NAME)
-		print(str(self.NAME) + str(self.ZIP_CODE))
 		return str(self.NAME) + str(self.ZIP_CODE)
 
 	def getYear(self):

@@ -4,4 +4,7 @@
 #
 # python ./src/donation-analytics.py ./input/itcont.txt ./input/percentile.txt ./output/repeat_donors.txt
 
-python3 ./src/donation_analytics.py ./input/itcont.txt ./input/percentile.txt ./output/repeat_donors.txt
+# python3 ./src/donation_analytics.py ./input/itcont.txt ./input/percentile.txt ./output/repeat_donors.txt
+
+python3 ./src/donation_analytics.py ./insight_testsuite/tests/my_test_1/input/itcont.txt ./input/percentile.txt ./insight_testsuite/tests/my_test_1/output/repeat_donors.txt
+
