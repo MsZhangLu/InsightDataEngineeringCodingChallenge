@@ -24,10 +24,12 @@ class Donation:
 			return True
 
 	def getID(self):
-		return self.NAME + self.ZIP_CODE
+		print(self.NAME)
+		print(str(self.NAME) + str(self.ZIP_CODE))
+		return str(self.NAME) + str(self.ZIP_CODE)
 
 	def getYear(self):
-		return int(self.TRANSACTION_DT[4:])
+		return self.TRANSACTION_DT[4:]
 
 	def getRecipient(self):
 		return self.CMTE_ID
@@ -36,7 +38,8 @@ class Donation:
 		return self.ZIP_CODE
 
 	def getAmt(self): 
-		return self.TRANSACTION_AMT
+		return float(self.TRANSACTION_AMT)
+		# return int(self.TRANSACTION_AMT)
 
 
 class Dictionary:
@@ -47,15 +50,15 @@ class Dictionary:
 		if key in self.dictionary:
 			self.dictionary[key][0] += 1
 		else:
-			self.dictionary[key] = (1, year)
+			self.dictionary[key] = [1, year]
 
 	def add_long(self, recipient, zipcode, year, amt):
 		key = (recipient, zipcode, year)
 		if key in self.dictionary:
-			self.dictionary[0] += 1
-			self.dictionary[1] += amt
+			self.dictionary[key][0].append(amt)
+			self.dictionary[key][1] += 1
 		else:
-			self.dictionary[key] = (1, amt) 
+			self.dictionary[key] = [[amt], 1] 
 
 	def drop(self, key):
 		self.dictionary.pop(key)
