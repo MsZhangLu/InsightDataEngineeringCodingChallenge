@@ -49,29 +49,18 @@ class Dictionary:
 			self.dictionary[key][0] += 1
 		else:
 			self.dictionary[key] = [1, year]
+		return self
 
 	def add_long(self, recipient, zipcode, year, amt):
 		key = (recipient, zipcode, year)
 		if key in self.dictionary:
-			self.dictionary[key][0].append(amt)
-			self.dictionary[key][1] += 1
+			self.dictionary[key].append(amt)
 		else:
-			self.dictionary[key] = [[amt], 1] 
-
-	def drop(self, key):
-		self.dictionary.pop(key)
+			self.dictionary[key] = [amt]
+		return self
 
 	def check(self, key):
 		return True if key in self.dictionary else False
 
 	def get(self, key):
 		return self.dictionary[key]
-
-class Output:
-	def __init__(self, recipient, zipcode, year, percentile, amt, donors):
-		self.recipient = recipient
-		self.zipcode = zipcode
-		self.year = year
-		self.percentile = percentile
-		self.amt = amt
-		self.donors = donors
